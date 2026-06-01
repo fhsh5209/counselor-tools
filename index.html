@@ -514,6 +514,70 @@
     color: var(--ink-muted);
   }
 
+  /* ── 截圖 Gallery ────────────── */
+  .gallery { margin: 20px 0; }
+
+  .gallery-main {
+    position: relative;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    display: block;
+  }
+  .gallery-main img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    transition: opacity 0.2s;
+  }
+  .gallery-main:hover img { opacity: 0.92; }
+
+  .gallery-hint {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(46,64,73,0.55));
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 24px 16px 12px;
+    text-align: center;
+    pointer-events: none;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .gallery-extra {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+  }
+  .gallery-extra.open { max-height: 2000px; }
+
+  .gallery-item {
+    margin-top: 12px;
+  }
+  .gallery-item img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+  }
+  .gallery-caption {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 6px;
+    padding-left: 4px;
+    font-style: italic;
+  }
+
+  /* 單張截圖 */
+  .screenshot {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+    margin: 20px 0;
+  }
+
   /* ── 水彩裝飾圖片 ────────────── */
   .deco-img {
     position: absolute;
@@ -654,7 +718,26 @@
         <strong>工具定位：</strong>學習歷程製作線上工具，適合還在摸索的同學<br>
         <strong>輔導切入點：</strong>在諮詢課中介紹給還沒有動工的學生，或是做了但找不到方向的學生
       </div>
-      <div class="placeholder"><span>screenshot placeholder</span></div>
+      <div class="gallery">
+        <div class="gallery-main" onclick="toggleGallery(this)">
+          <img src="assets/yory-1.png" alt="Yory 學習歷程平台首頁">
+          <span class="gallery-hint">▾ 點擊展開更多截圖</span>
+        </div>
+        <div class="gallery-extra">
+          <div class="gallery-item">
+            <img src="assets/yory-2.png" alt="AI 內容評鑑功能">
+            <p class="gallery-caption">AI 內容評鑑：根據個人寫作提供改善建議，對準科系需求</p>
+          </div>
+          <div class="gallery-item">
+            <img src="assets/yory-3.png" alt="學習歷程自述撰寫介面">
+            <p class="gallery-caption">學習歷程自述撰寫介面：P、Q 段引導架構，可直接在線上完成</p>
+          </div>
+          <div class="gallery-item">
+            <img src="assets/yory-4.png" alt="清寒學生免費申請">
+            <p class="gallery-caption">清寒學生免費名額：持中低收入戶證明即可申請，Email 至 info@yory.school</p>
+          </div>
+        </div>
+      </div>
       <div class="tool-footer">
         <a class="tool-link" href="https://www.yory.school/" target="_blank">www.yory.school</a>
       </div>
@@ -717,7 +800,7 @@
         <strong>工具定位：</strong>鳳新自製查詢網頁，資料持續維護更新<br>
         <strong>輔導切入點：</strong>繁星推薦選填前，與學生一起對照班排及系所要求
       </div>
-      <div class="placeholder"><span>screenshot placeholder</span></div>
+      <img class="screenshot" src="assets/bxstar.png" alt="大學繁星推薦入學歷年錄取標準儀表板">
       <div class="tool-footer">
         <a class="tool-link" href="https://fhsh5209.github.io/star-admission/" target="_blank">fhsh5209.github.io/star-admission</a>
       </div>
@@ -742,7 +825,7 @@
         <strong>工具定位：</strong>個人化二階報名追蹤工具<br>
         <strong>輔導切入點：</strong>二階備審開始後，建議學生先用這個釐清所有系所要求再動手備審
       </div>
-      <div class="placeholder"><span>screenshot placeholder</span></div>
+      <img class="screenshot" src="assets/tracker.png" alt="115大學申請入學二階甄選小幫手">
       <div class="tool-footer">
         <a class="tool-link" href="https://fhsh5209.github.io/sticky-note/tracker/" target="_blank">fhsh5209.github.io/sticky-note/tracker</a>
       </div>
@@ -841,5 +924,14 @@
   <span style="opacity:0.6;">made with ♡ by T. Shima</span>
 </footer>
 
+<script>
+  function toggleGallery(el) {
+    const extra = el.nextElementSibling;
+    const hint  = el.querySelector('.gallery-hint');
+    const isOpen = extra.classList.contains('open');
+    extra.classList.toggle('open', !isOpen);
+    hint.textContent = isOpen ? '▾ 點擊展開更多截圖' : '▴ 點擊收起';
+  }
+</script>
 </body>
 </html>
