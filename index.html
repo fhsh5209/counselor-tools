@@ -597,13 +597,23 @@
 
   /* ── 製作者標注 ──────────────── */
   .attribution {
-    font-size: 15px;
-    color: var(--purple-mid);
     font-family: var(--font-jp);
-    font-style: normal;
+    font-size: 14px;
     font-weight: 500;
-    margin-top: 6px;
+    font-style: normal;
     letter-spacing: 0.06em;
+    color: var(--purple-mid);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    margin-bottom: 4px;
+  }
+  .attribution::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--purple);
   }
 
   /* ── Gem 合體卡片 ────────────── */
