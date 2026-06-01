@@ -595,6 +595,16 @@
     box-shadow: 0 6px 24px rgba(46, 64, 73, 0.10), 0 1px 4px rgba(46, 64, 73, 0.05);
   }
 
+  /* ── 製作者標注 ──────────────── */
+  .attribution {
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-family: var(--font-body);
+    font-style: italic;
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
   /* ── Gem 合體卡片 ────────────── */
   .gem-group { padding: 0; overflow: hidden; }
   .gem-row {
@@ -812,6 +822,7 @@
         <div class="tool-name">
           模擬落點分析
           <span>112 年講座講義｜社會組＋自然組</span>
+          <span class="attribution">陳琬琳老師製作</span>
         </div>
         <p class="tool-why">
           高三同學考完三次模擬考後的自我檢視工具，幫助確認考前應衝刺的學科。
@@ -900,6 +911,7 @@
 
     <!-- 兩個 Gem 合體卡片 -->
     <div class="tool-card gem-group">
+      <p class="attribution" style="padding:16px 36px 0;margin:0;">陳琬琳老師製作</p>
       <a class="gem-row" href="https://gemini.google.com/gem/1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej?usp=sharing" target="_blank">
         <div class="gem-row-header">
           <div class="tool-name">
@@ -925,7 +937,7 @@
 
     <!-- 配套講義大按鈕 -->
     <a class="handout-big-btn" href="https://drive.google.com/drive/folders/1PskYVOgNG74SJjR_oEIjOU52-0Rb01H7?usp=sharing" target="_blank">
-      📎 教師教學講義下載｜請搭配以上 AI 工具
+      <img src="assets/packing.png" alt="" style="width:26px;height:26px;filter:brightness(0) invert(1) sepia(1) hue-rotate(200deg) saturate(200%) brightness(1.1);"> 教師教學講義下載｜請搭配以上 AI 工具
     </a>
 
   </div>
