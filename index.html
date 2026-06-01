@@ -595,27 +595,38 @@
     box-shadow: 0 6px 24px rgba(46, 64, 73, 0.10), 0 1px 4px rgba(46, 64, 73, 0.05);
   }
 
-  /* ── 配套講義大色塊 ───────────── */
-  .handout-block {
-    display: block;
-    padding: 9px 16px;
+  /* ── Gem 雙按鈕列 ────────────── */
+  .gem-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .gem-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    font-family: var(--font-body);
+    letter-spacing: 0.04em;
+    transition: background 0.2s, color 0.2s;
+  }
+  .gem-btn-gem {
+    background: var(--blue);
+    color: var(--blue-deep);
+  }
+  .gem-btn-gem:hover { background: var(--blue-deep); color: #fff; }
+  .gem-btn-handout {
     background: var(--purple);
     color: var(--purple-deep);
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    text-align: center;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s;
-    font-family: var(--font-body);
-    white-space: nowrap;
-    margin-top: 8px;
-    letter-spacing: 0.04em;
   }
-  .handout-block:hover {
-    background: var(--purple-deep);
-    color: #fff;
-  }
+  .gem-btn-handout:hover { background: var(--purple-deep); color: #fff; }
 
   /* ── 水彩裝飾圖片 ────────────── */
   .deco-img {
@@ -875,38 +886,38 @@
     </div>
 
     <!-- 卡片：Gem 平凡（精簡） -->
-    <div class="tool-card compact gem-card">
-      <a class="gem-card-link" href="https://gemini.google.com/gem/1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej?usp=sharing" target="_blank" aria-label="開啟 Gem：我太平凡了嗎"></a>
-      <div class="tool-card-body">
+    <div class="tool-card">
+      <div class="tool-card-header">
         <div class="tool-name">
           Gem「我太平凡了嗎」
           <span>平凡中的優勢亮點</span>
         </div>
-        <p class="tool-why">
-          協助學生在備審準備過程中找到自己的亮點，讓「覺得自己很普通」不再是卡關的理由。
-        </p>
-      </div>
-      <div class="tool-card-side">
         <span class="tool-tag tag-purple">備審亮點</span>
-        <a class="handout-block" href="https://drive.google.com/drive/folders/1PskYVOgNG74SJjR_oEIjOU52-0Rb01H7?usp=sharing" target="_blank">📎 配套講義</a>
+      </div>
+      <p class="tool-why">
+        協助學生在備審準備過程中找到自己的亮點，讓「覺得自己很普通」不再是卡關的理由。
+      </p>
+      <div class="gem-actions">
+        <a class="gem-btn gem-btn-gem" href="https://gemini.google.com/gem/1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej?usp=sharing" target="_blank">🔗 Gemini Gem</a>
+        <a class="gem-btn gem-btn-handout" href="https://drive.google.com/drive/folders/1PskYVOgNG74SJjR_oEIjOU52-0Rb01H7?usp=sharing" target="_blank">📎 配套講義</a>
       </div>
     </div>
 
     <!-- 卡片：Gem NOPQ（精簡） -->
-    <div class="tool-card compact gem-card">
-      <a class="gem-card-link" href="https://gemini.google.com/gem/1rCuTXfJYe63srS8GM0woda8M_4sOYoIS?usp=sharing" target="_blank" aria-label="開啟 Gem：NOPQ 五分熟"></a>
-      <div class="tool-card-body">
+    <div class="tool-card">
+      <div class="tool-card-header">
         <div class="tool-name">
           Gem「NOPQ 五分熟」
           <span>多元表現綜整心得、學習歷程自述</span>
         </div>
-        <p class="tool-why">
-          協助學生完成申請入學最重要的兩份文件——多元表現綜整心得與學習歷程自述。
-        </p>
-      </div>
-      <div class="tool-card-side">
         <span class="tool-tag tag-purple">備審自述</span>
-        <a class="handout-block" href="https://drive.google.com/drive/folders/1PskYVOgNG74SJjR_oEIjOU52-0Rb01H7?usp=sharing" target="_blank">📎 配套講義</a>
+      </div>
+      <p class="tool-why">
+        協助學生完成申請入學最重要的兩份文件——多元表現綜整心得與學習歷程自述。
+      </p>
+      <div class="gem-actions">
+        <a class="gem-btn gem-btn-gem" href="https://gemini.google.com/gem/1rCuTXfJYe63srS8GM0woda8M_4sOYoIS?usp=sharing" target="_blank">🔗 Gemini Gem</a>
+        <a class="gem-btn gem-btn-handout" href="https://drive.google.com/drive/folders/1PskYVOgNG74SJjR_oEIjOU52-0Rb01H7?usp=sharing" target="_blank">📎 配套講義</a>
       </div>
     </div>
 
