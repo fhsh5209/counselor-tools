@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>升學輔導工具分享｜課程諮詢教師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&family=Zen+Maru+Gothic:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── 基礎 token ─────────────────── */
+  :root {
+    --base:       #F7FAFB;
+    --base-alt:   #EFF5F7;
+    --ink:        #2E4049;
+    --ink-light:  #5C7380;
+    --ink-muted:  #8EA8B4;
+
+    --green:      #CBE4C1;
+    --green-mid:  #A8D09C;
+    --green-deep: #6FAA62;
+    --blue:       #CDE9EE;
+    --blue-mid:   #9DCFDA;
+    --blue-deep:  #4EA8BF;
+    --yellow:     #FAF8CB;
+    --yellow-mid: #F0E97A;
+    --pink:       #F8C8C9;
+    --pink-mid:   #EF9EA0;
+
+    --purple:      #ECD5F0;
+    --purple-mid:  #C9A0D9;
+    --purple-deep: #8A5FA0;
+
+    --shadow-out: 0 4px 18px rgba(46, 64, 73, 0.05), 0 1px 3px rgba(46, 64, 73, 0.03);
+    --shadow-in:  inset 0 2px 6px rgba(46, 64, 73, 0.05);
+
+    --font-jp:    'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
+    --font-en:    'Quicksand', sans-serif;
+    --font-body:  'Noto Sans TC', sans-serif;
+  }
+
+  /* ── Reset ─────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: linear-gradient(
+      168deg,
+      #d6eff7 0%,
+      #e8f5f9 12%,
+      #F7FAFB 32%,
+      #F7FAFB 60%,
+      #eee8f8 82%,
+      #e2eef5 100%
+    );
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── 水彩 blob ─────────────────── */
+  .blob-layer {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
+    filter: blur(40px);
+    opacity: 0.38;
+  }
+  .blob-green  { background: var(--green);  }
+  .blob-blue   { background: var(--blue);   }
+  .blob-yellow { background: var(--yellow); }
+  .blob-pink   { background: var(--pink);   }
+  .blob-purple { background: var(--purple); }
+
+  /* ── Wave separator ────────────── */
+  .wave-sep {
+    width: 100%; overflow: hidden;
+    line-height: 0;
+    margin: 0;
+  }
+  .wave-sep svg { display: block; width: 100%; }
+
+  /* ── Section 通用 ─────────────── */
+  section {
+    position: relative;
+    padding: 80px 24px;
+  }
+  .section-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Section 底色交替 ─────────── */
+  section { background: transparent; }
+  section.alt-bg { background: rgba(220, 240, 235, 0.22); }
+
+  /* ── 學期標籤 ────────────────── */
+  .semester-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 18px;
+    border-radius: 10px;
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .badge-green { background: var(--green-deep); color: #fff; }
+  .badge-blue  { background: var(--blue-deep);  color: #fff; }
+
+  .semester-badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+  .badge-green::before { background: rgba(255,255,255,0.7); }
+  .badge-blue::before  { background: rgba(255,255,255,0.7); }
+
+  /* ── section 標題 ────────────── */
+  .sec-title {
+    font-family: var(--font-jp);
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .sec-sub {
+    font-size: 14px;
+    color: var(--ink-light);
+    margin-bottom: 48px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── 工具卡 ──────────────────── */
+  .tool-card {
+    background: var(--base);
+    border-radius: 12px;
+    box-shadow: var(--shadow-out);
+    padding: 36px 40px;
+    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    transition: box-shadow 0.25s;
+  }
+  .tool-card:hover {
+    box-shadow: 7px 7px 18px #c8d4d8, -5px -5px 14px #ffffff;
+  }
+
+  .tool-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .tool-name {
+    font-family: var(--font-jp);
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .tool-name span {
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    display: block;
+    margin-top: 2px;
+  }
+  .tool-tag {
+    font-family: var(--font-en);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+  .tag-green  { background: var(--green);   color: var(--green-deep);  }
+  .tag-blue   { background: var(--blue);    color: var(--blue-deep);   }
+  .tag-yellow { background: var(--yellow);  color: #7A7020;            }
+  .tag-pink   { background: var(--pink);    color: #A04040;            }
+  .tag-purple { background: var(--purple);  color: var(--purple-deep); }
+  .tag-rect   { border-radius: 10px; }
+
+  .tool-why {
+    font-size: 15px;
+    color: var(--ink-light);
+    margin-bottom: 20px;
+    line-height: 1.9;
+    border-left: 3px solid rgba(156, 207, 218, 0.4);
+    padding-left: 14px;
+  }
+  .tool-body {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.85;
+  }
+  .tool-body strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── 卡片下方連結列 ─────────── */
+  .tool-footer {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--base-alt);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .tool-link {
+    font-family: var(--font-en);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .tool-link:hover { color: var(--blue-deep); }
+  .tool-link::before {
+    content: '→';
+    font-size: 11px;
+  }
+
+  /* 紙本標示 */
+  .paper-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-family: var(--font-body);
+    color: #fff;
+    background: var(--purple-deep);
+    padding: 5px 14px;
+    border-radius: 10px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── 精簡卡 ──────────────────── */
+  .tool-card.compact {
+    padding: 24px 30px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 24px;
+    align-items: center;
+  }
+  .tool-card.compact .tool-card-body { grid-column: 1; }
+  .tool-card.compact .tool-card-side { grid-column: 2; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .tool-card.compact .tool-name { font-size: 15px; margin-bottom: 4px; }
+  .tool-card.compact .tool-why { font-size: 14px; margin-bottom: 0; border: none; padding-left: 0; color: var(--ink-light); }
+  @media (max-width: 600px) {
+    .tool-card.compact { grid-template-columns: 1fr; }
+    .tool-card.compact .tool-card-side { grid-column: 1; flex-direction: row; align-items: center; margin-top: 12px; }
+  }
+
+  /* ── placeholder ──────────────── */
+  .placeholder {
+    width: 100%;
+    height: 180px;
+    border-radius: 12px;
+    background: var(--base-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(0,0,0,0.04) 10px,
+      rgba(0,0,0,0.04) 11px
+    );
+  }
+  .placeholder span {
+    font-family: var(--font-en);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ─────────────────────── */
+  #hero {
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 24px 60px;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--ink-muted);
+  }
+  .hero-title {
+    font-family: var(--font-jp);
+    font-size: clamp(34px, 7vw, 60px);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--blue-deep);
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--ink-light);
+    max-width: 540px;
+    line-height: 2;
+    margin-bottom: 48px;
+  }
+
+  /* ── 時間軸 ──────────────────── */
+  .timeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 40px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .timeline::-webkit-scrollbar { height: 3px; }
+  .timeline::-webkit-scrollbar-track { background: transparent; }
+  .timeline::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 99px; }
+
+  .tl-semester {
+    flex: 1;
+    min-width: 280px;
+    padding: 24px 28px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.6);
+    box-shadow: var(--shadow-out);
+    backdrop-filter: blur(6px);
+  }
+  .tl-semester + .tl-semester {
+    margin-left: 16px;
+  }
+  .tl-semester.s1 { border-top: none; }
+  .tl-semester.s2 { border-top: none; }
+
+  .tl-label {
+    font-family: var(--font-en);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 10px;
+    color: #fff;
+  }
+  .s1 .tl-label { background: var(--green-deep); }
+  .s2 .tl-label { background: var(--blue-deep);  }
+
+  .tl-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .tl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 8px;
+  }
+  .s1 .tl-dot { background: var(--green-deep); }
+  .s2 .tl-dot { background: var(--blue-deep);  }
+
+  .tl-time {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--ink-light);
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ── 下學期群組 ───────────────── */
+  .group-label {
+    font-family: var(--font-jp);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: var(--blue-deep);
+    font-weight: 500;
+    margin-bottom: 16px;
+    margin-top: 44px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .group-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--blue);
+  }
+
+  /* ── 總覽 QR 牆 ──────────────── */
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .qr-item {
+    background: var(--base);
+    border-radius: 16px;
+    box-shadow: var(--shadow-out);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .qr-box {
+    width: 80px; height: 80px;
+    background: var(--base-alt);
+    border-radius: 10px;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-en);
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    position: relative;
+    overflow: hidden;
+  }
+  .qr-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent, transparent 5px,
+      rgba(0,0,0,0.04) 5px, rgba(0,0,0,0.04) 6px
+    );
+  }
+  .qr-box span { position: relative; z-index: 1; }
+  .qr-name {
+    font-family: var(--font-jp);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .qr-sem {
+    font-family: var(--font-en);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+  }
+
+  /* ── 水彩裝飾圖片 ────────────── */
+  .deco-img {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    mix-blend-mode: multiply;
+  }
+
+  /* ── footer ──────────────────── */
+  footer {
+    text-align: center;
+    padding: 60px 24px;
+    font-family: var(--font-en);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+  }
+
+  /* ── 響應式 ──────────────────── */
+  @media (max-width: 600px) {
+    .tool-card { padding: 24px 20px; }
+    section { padding: 60px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section id="hero">
+  <div class="blob-layer">
+    <div class="blob blob-blue"   style="width:480px;height:420px;top:-80px;right:-100px;"></div>
+    <div class="blob blob-green"  style="width:360px;height:320px;bottom:40px;left:-80px;"></div>
+    <div class="blob blob-yellow" style="width:200px;height:180px;top:40%;left:30%;"></div>
+    <div class="blob blob-purple" style="width:260px;height:220px;bottom:10%;right:20%;opacity:0.3;"></div>
+  </div>
+  <!-- 水彩裝飾：藍紫繡球+葉（右下）、藍色花枝（左下） -->
+  <img class="deco-img" src="assets/wc2.png" alt="" style="width:300px;right:-20px;bottom:-30px;opacity:0.72;">
+  <img class="deco-img" src="assets/wc4.png" alt="" style="width:170px;left:10px;bottom:60px;opacity:0.58;transform:scaleX(-1);">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">鳳新高中 ｜ 課程諮詢教師 ｜ 114 學年</p>
+    <h1 class="hero-title">
+      升學輔導<br>
+      <em>工具分享</em>
+    </h1>
+    <p class="hero-sub">
+      陪高三學生走過完整一年的實務工具——<br>
+      從學習歷程到二階備審，每個時機都有對應的支援。
+    </p>
+
+    <!-- 時間軸概覽 -->
+    <div class="timeline">
+      <div class="tl-semester s1">
+        <div class="tl-label">First Semester｜上學期</div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <strong>Yory</strong>
+            <span class="tl-time">學習歷程製作</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <strong>模擬落點分析</strong>
+            <span class="tl-time">三次模考後自我檢視</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-semester s2">
+        <div class="tl-label">Second Semester｜下學期</div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <strong>繁星推薦歷年篩選標準</strong>
+            <span class="tl-time">繁星申請參考</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <strong>二階報名小幫手</strong>
+            <span class="tl-time">申請入學二階整備</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <strong>Gem「平凡中的優勢亮點」</strong>
+            <span class="tl-time">審查資料備審亮點</span>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div>
+            <strong>Gem「NOPQ 五分熟」</strong>
+            <span class="tl-time">多元表現綜整、自述</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave -->
+<div class="wave-sep">
+  <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,24 C240,48 480,0 720,24 C960,48 1200,0 1440,24 L1440,48 L0,48 Z" fill="#EFF5F7"/>
+  </svg>
+</div>
+
+<!-- ═══════════ 上學期 ═══════════ -->
+<section class="alt-bg" id="s1">
+  <div class="blob-layer">
+    <div class="blob blob-green" style="width:400px;height:340px;top:-60px;right:-120px;opacity:0.25;"></div>
+  </div>
+  <!-- 水彩裝飾：水藍小花（右上）、散開藍花（左下） -->
+  <img class="deco-img" src="assets/wc6.png" alt="" style="width:190px;right:-10px;top:10px;opacity:0.65;">
+  <img class="deco-img" src="assets/wc1.png" alt="" style="width:220px;left:-30px;bottom:20px;opacity:0.55;transform:rotate(15deg);">
+  <div class="section-inner">
+    <div class="semester-badge badge-green">First Semester｜上學期</div>
+    <h2 class="sec-title">建立學習歷程的基礎</h2>
+    <p class="sec-sub">在三次模擬考完成之前，協助學生整理學習軌跡、找出落點方向</p>
+
+    <!-- 卡片 A：Yory -->
+    <div class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-name">
+          Yory
+          <span>yory.school</span>
+        </div>
+        <span class="tool-tag tag-green">學習歷程製作</span>
+      </div>
+      <p class="tool-why">
+        當學生不知道怎麼整理學習歷程時，Yory 提供有系統的引導架構幫助產出——而且有提供清寒學生免費名額。
+      </p>
+      <div class="tool-body">
+        <strong>工具定位：</strong>學習歷程製作線上工具，適合還在摸索的同學<br>
+        <strong>輔導切入點：</strong>在諮詢課中介紹給還沒有動工的學生，或是做了但找不到方向的學生
+      </div>
+      <div class="placeholder"><span>screenshot placeholder</span></div>
+      <div class="tool-footer">
+        <a class="tool-link" href="https://www.yory.school/" target="_blank">www.yory.school</a>
+      </div>
+    </div>
+
+    <!-- 卡片 B：模擬落點分析（精簡） -->
+    <div class="tool-card compact">
+      <div class="tool-card-body">
+        <div class="tool-name">
+          模擬落點分析
+          <span>112 年講座講義｜社會組＋自然組</span>
+        </div>
+        <p class="tool-why">
+          高三同學考完三次模擬考後的自我檢視工具，幫助確認考前應衝刺的學科。
+        </p>
+      </div>
+      <div class="tool-card-side">
+        <span class="tool-tag tag-purple tag-rect">現場紙本</span>
+        <span class="paper-note">講義現場發放</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- wave -->
+<div class="wave-sep" style="background:#EFF5F7">
+  <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,24 C240,0 480,48 720,24 C960,0 1200,48 1440,24 L1440,48 L0,48 Z" fill="#F7FAFB"/>
+  </svg>
+</div>
+
+<!-- ═══════════ 下學期 ═══════════ -->
+<section id="s2">
+  <div class="blob-layer">
+    <div class="blob blob-blue"  style="width:500px;height:400px;top:-100px;left:-120px;opacity:0.28;"></div>
+    <div class="blob blob-pink"  style="width:240px;height:220px;bottom:60px;right:-60px;opacity:0.22;"></div>
+  </div>
+  <!-- 水彩裝飾：藍紫單朵（右上）、藍紫繡球（左下） -->
+  <img class="deco-img" src="assets/wc3.png" alt="" style="width:160px;right:0px;top:-20px;opacity:0.6;">
+  <img class="deco-img" src="assets/wc0.png" alt="" style="width:180px;left:-20px;bottom:40px;opacity:0.55;">
+  <div class="section-inner">
+    <div class="semester-badge badge-blue">Second Semester｜下學期</div>
+    <h2 class="sec-title">申請入學全程陪跑</h2>
+    <p class="sec-sub">從繁星查詢到備審資料完成，每個關鍵節點都有工具支援</p>
+
+    <!-- 卡片：繁星 -->
+    <div class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-name">
+          繁星推薦歷年篩選標準
+          <span>fhsh5209.github.io/star-admission</span>
+        </div>
+        <span class="tool-tag tag-blue">繁星推薦</span>
+      </div>
+      <p class="tool-why">
+        查詢各校系歷年繁星錄取標準，協助學生與老師快速評估可能落點，不用一頁一頁翻 PDF。
+      </p>
+      <div class="tool-body">
+        <strong>工具定位：</strong>鳳新自製查詢網頁，資料持續維護更新<br>
+        <strong>輔導切入點：</strong>繁星推薦選填前，與學生一起對照班排及系所要求
+      </div>
+      <div class="placeholder"><span>screenshot placeholder</span></div>
+      <div class="tool-footer">
+        <a class="tool-link" href="https://fhsh5209.github.io/star-admission/" target="_blank">fhsh5209.github.io/star-admission</a>
+      </div>
+    </div>
+
+    <!-- 申請二階群組 -->
+    <div class="group-label">申請入學 · 第二階段</div>
+
+    <!-- 卡片：二階小幫手 -->
+    <div class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-name">
+          二階報名小幫手
+          <span>fhsh5209.github.io/sticky-note/tracker</span>
+        </div>
+        <span class="tool-tag tag-blue">二階整備</span>
+      </div>
+      <p class="tool-why">
+        申請入學二階報名期間，學生常常搞不清楚每個校系要繳什麼、截止時間是什麼——小幫手幫大家快速整理所有報名資料。
+      </p>
+      <div class="tool-body">
+        <strong>工具定位：</strong>個人化二階報名追蹤工具<br>
+        <strong>輔導切入點：</strong>二階備審開始後，建議學生先用這個釐清所有系所要求再動手備審
+      </div>
+      <div class="placeholder"><span>screenshot placeholder</span></div>
+      <div class="tool-footer">
+        <a class="tool-link" href="https://fhsh5209.github.io/sticky-note/tracker/" target="_blank">fhsh5209.github.io/sticky-note/tracker</a>
+      </div>
+    </div>
+
+    <!-- 卡片：Gem 平凡（精簡） -->
+    <div class="tool-card compact">
+      <div class="tool-card-body">
+        <div class="tool-name">
+          Gem「我太平凡了嗎」
+          <span>平凡中的優勢亮點</span>
+        </div>
+        <p class="tool-why">
+          協助學生在備審準備過程中找到自己的亮點，讓「覺得自己很普通」不再是卡關的理由。
+        </p>
+      </div>
+      <div class="tool-card-side">
+        <span class="tool-tag tag-purple">備審亮點</span>
+        <a class="tool-link" href="https://gemini.google.com/gem/1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej?usp=sharing" target="_blank">Gemini Gem 連結</a>
+      </div>
+    </div>
+
+    <!-- 卡片：Gem NOPQ（精簡） -->
+    <div class="tool-card compact">
+      <div class="tool-card-body">
+        <div class="tool-name">
+          Gem「NOPQ 五分熟」
+          <span>多元表現綜整心得、學習歷程自述</span>
+        </div>
+        <p class="tool-why">
+          協助學生完成申請入學最重要的兩份文件——多元表現綜整心得與學習歷程自述。
+        </p>
+      </div>
+      <div class="tool-card-side">
+        <span class="tool-tag tag-purple">備審自述</span>
+        <span style="font-size:11px;color:var(--ink-muted);font-family:var(--font-en);">連結確認中</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- wave -->
+<div class="wave-sep">
+  <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,24 C240,48 480,0 720,24 C960,48 1200,0 1440,24 L1440,48 L0,48 Z" fill="#EFF5F7"/>
+  </svg>
+</div>
+
+<!-- ═══════════ 總覽 QR ═══════════ -->
+<section class="alt-bg" id="overview">
+  <div class="blob-layer">
+    <div class="blob blob-yellow" style="width:300px;height:260px;top:-40px;right:-60px;opacity:0.3;"></div>
+    <div class="blob blob-blue"   style="width:280px;height:240px;bottom:-40px;left:-60px;opacity:0.25;"></div>
+  </div>
+  <!-- 水彩裝飾：黃花（右下）、散開藍花（左上） -->
+  <img class="deco-img" src="assets/wc5.png" alt="" style="width:210px;right:-10px;bottom:30px;opacity:0.65;">
+  <img class="deco-img" src="assets/wc6.png" alt="" style="width:150px;left:-10px;top:20px;opacity:0.55;transform:scaleX(-1);">
+  <div class="section-inner">
+    <h2 class="sec-title">快速掃碼｜帶走今天的工具</h2>
+    <p class="sec-sub">掃 QR Code 直接開啟，或是截圖存起來</p>
+
+    <div class="qr-grid">
+      <div class="qr-item">
+        <div class="qr-box"><span>QR placeholder</span></div>
+        <div class="qr-name">Yory</div>
+        <div class="qr-sem">上學期 ｜ 學習歷程</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-box"><span>QR placeholder</span></div>
+        <div class="qr-name">繁星推薦查詢</div>
+        <div class="qr-sem">下學期 ｜ 繁星推薦</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-box"><span>QR placeholder</span></div>
+        <div class="qr-name">二階報名小幫手</div>
+        <div class="qr-sem">下學期 ｜ 二階整備</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-box"><span>QR placeholder</span></div>
+        <div class="qr-name">Gem 亮點發掘</div>
+        <div class="qr-sem">下學期 ｜ 備審亮點</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-box"><span>QR placeholder</span></div>
+        <div class="qr-name">Gem NOPQ 五分熟</div>
+        <div class="qr-sem">下學期 ｜ 備審自述</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  鳳新高中 教務處 ｜ 114 學年度 課程諮詢教師研習<br>
+  <span style="opacity:0.6;">made with ♡ by T. Shima</span>
+</footer>
+
+</body>
+</html>
