@@ -595,38 +595,50 @@
     box-shadow: 0 6px 24px rgba(46, 64, 73, 0.10), 0 1px 4px rgba(46, 64, 73, 0.05);
   }
 
-  /* ── Gem 雙按鈕列 ────────────── */
-  .gem-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 20px;
+  /* ── Gem 合體卡片 ────────────── */
+  .gem-group { padding: 0; overflow: hidden; }
+  .gem-row {
+    display: block;
+    padding: 28px 36px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+    cursor: pointer;
   }
-  .gem-btn {
+  .gem-row:hover { background: rgba(205, 233, 238, 0.18); }
+  .gem-row-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .gem-row-divider {
+    height: 1px;
+    background: rgba(156, 207, 218, 0.35);
+    margin: 0 36px;
+  }
+  /* 大講義按鈕 */
+  .handout-big-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 14px;
+    gap: 8px;
+    width: 100%;
+    margin-top: 14px;
+    padding: 18px 24px;
+    background: var(--blue-mid);
+    color: #fff;
+    border-radius: 12px;
+    font-family: var(--font-jp);
+    font-size: 16px;
     font-weight: 500;
+    letter-spacing: 0.06em;
     text-decoration: none;
-    text-align: center;
-    font-family: var(--font-body);
-    letter-spacing: 0.04em;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s;
   }
-  .gem-btn-gem {
-    background: var(--blue);
-    color: var(--blue-deep);
-  }
-  .gem-btn-gem:hover { background: var(--blue-deep); color: #fff; }
-  .gem-btn-handout {
-    background: var(--purple);
-    color: var(--purple-deep);
-  }
-  .gem-btn-handout:hover { background: var(--purple-deep); color: #fff; }
+  .handout-big-btn:hover { background: var(--blue-deep); }
 
   /* ── 水彩裝飾圖片 ────────────── */
   .deco-img {
@@ -885,41 +897,35 @@
       </div>
     </div>
 
-    <!-- 卡片：Gem 平凡（精簡） -->
-    <div class="tool-card">
-      <div class="tool-card-header">
-        <div class="tool-name">
-          Gem「我太平凡了嗎」
-          <span>平凡中的優勢亮點</span>
+    <!-- 兩個 Gem 合體卡片 -->
+    <div class="tool-card gem-group">
+      <a class="gem-row" href="https://gemini.google.com/gem/1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej?usp=sharing" target="_blank">
+        <div class="gem-row-header">
+          <div class="tool-name">
+            Gem「我太平凡了嗎」
+            <span>平凡中的優勢亮點</span>
+          </div>
+          <span class="tool-tag tag-purple">備審亮點</span>
         </div>
-        <span class="tool-tag tag-purple">備審亮點</span>
-      </div>
-      <p class="tool-why">
-        協助學生在備審準備過程中找到自己的亮點，讓「覺得自己很普通」不再是卡關的理由。
-      </p>
-      <div class="gem-actions">
-        <a class="gem-btn gem-btn-gem" href="https://gemini.google.com/gem/1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej?usp=sharing" target="_blank">🔗 Gemini Gem</a>
-        <a class="gem-btn gem-btn-handout" href="https://drive.google.com/drive/folders/1PskYVOgNG74SJjR_oEIjOU52-0Rb01H7?usp=sharing" target="_blank">📎 配套講義</a>
-      </div>
+        <p class="tool-why" style="margin-bottom:0;">協助學生在備審準備過程中找到自己的亮點，讓「覺得自己很普通」不再是卡關的理由。</p>
+      </a>
+      <div class="gem-row-divider"></div>
+      <a class="gem-row" href="https://gemini.google.com/gem/1rCuTXfJYe63srS8GM0woda8M_4sOYoIS?usp=sharing" target="_blank">
+        <div class="gem-row-header">
+          <div class="tool-name">
+            Gem「NOPQ 五分熟」
+            <span>多元表現綜整心得、學習歷程自述</span>
+          </div>
+          <span class="tool-tag tag-purple">備審自述</span>
+        </div>
+        <p class="tool-why" style="margin-bottom:0;">協助學生完成申請入學最重要的兩份文件——多元表現綜整心得與學習歷程自述。</p>
+      </a>
     </div>
 
-    <!-- 卡片：Gem NOPQ（精簡） -->
-    <div class="tool-card">
-      <div class="tool-card-header">
-        <div class="tool-name">
-          Gem「NOPQ 五分熟」
-          <span>多元表現綜整心得、學習歷程自述</span>
-        </div>
-        <span class="tool-tag tag-purple">備審自述</span>
-      </div>
-      <p class="tool-why">
-        協助學生完成申請入學最重要的兩份文件——多元表現綜整心得與學習歷程自述。
-      </p>
-      <div class="gem-actions">
-        <a class="gem-btn gem-btn-gem" href="https://gemini.google.com/gem/1rCuTXfJYe63srS8GM0woda8M_4sOYoIS?usp=sharing" target="_blank">🔗 Gemini Gem</a>
-        <a class="gem-btn gem-btn-handout" href="https://drive.google.com/drive/folders/1PskYVOgNG74SJjR_oEIjOU52-0Rb01H7?usp=sharing" target="_blank">📎 配套講義</a>
-      </div>
-    </div>
+    <!-- 配套講義大按鈕 -->
+    <a class="handout-big-btn" href="https://drive.google.com/drive/folders/1PskYVOgNG74SJjR_oEIjOU52-0Rb01H7?usp=sharing" target="_blank">
+      📎 教師教學講義下載｜請搭配以上 AI 工具
+    </a>
 
   </div>
 </section>
