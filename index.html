@@ -101,7 +101,7 @@
 
   /* ── Section 底色交替 ─────────── */
   section { background: transparent; }
-  section.alt-bg { background: rgba(220, 240, 235, 0.12); }
+  section.alt-bg { background: transparent; }
 
   /* ── 學期標籤 ────────────────── */
   .semester-badge {
@@ -379,9 +379,8 @@
     padding-bottom: 8px;
     -webkit-overflow-scrolling: touch;
   }
-  .timeline::-webkit-scrollbar { height: 3px; }
-  .timeline::-webkit-scrollbar-track { background: transparent; }
-  .timeline::-webkit-scrollbar-thumb { background: var(--blue-mid); border-radius: 99px; }
+  .timeline::-webkit-scrollbar { display: none; }
+  .timeline { -ms-overflow-style: none; scrollbar-width: none; }
 
   .tl-semester {
     flex: 1;
