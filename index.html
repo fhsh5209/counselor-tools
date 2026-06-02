@@ -12,7 +12,7 @@
     --base:       #F7FAFB;
     --base-alt:   #EFF5F7;
     --ink:        #2E4049;
-    --ink-light:  #5C7380;
+    --ink-light:  #3d5a69;
     --ink-muted:  #8EA8B4;
 
     --green:      #CBE4C1;
@@ -605,11 +605,11 @@
   /* ── 製作者標注 ──────────────── */
   .attribution {
     font-family: var(--font-jp);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     font-style: normal;
     letter-spacing: 0.06em;
-    color: var(--purple-mid);
+    color: var(--purple-deep);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -721,6 +721,397 @@
     border-color: rgba(157, 207, 218, 0.90);
     transform: translateY(-2px);
   }
+
+  /* ── NOPQ 四步驟表格 ────────── */
+  .nopq-table {
+    margin: 24px 0 32px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(205, 233, 238, 0.60);
+  }
+  .nopq-table-head {
+    display: grid;
+    grid-template-columns: 74px 1fr 1fr 1.8fr;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-jp);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .nopq-table-head div { padding: 11px 14px; }
+  .nopq-table-row {
+    display: grid;
+    grid-template-columns: 74px 1fr 1fr 1.8fr;
+    border-top: 1px solid rgba(205, 233, 238, 0.45);
+    background: rgba(255,255,255,0.68);
+    align-items: center;
+    font-size: 13px;
+  }
+  .nopq-table-row:nth-child(even) { background: rgba(240,248,251,0.68); }
+  .nopq-table-row > div { padding: 13px 14px; line-height: 1.65; color: var(--ink); font-family: var(--font-body); font-size: 14px; font-weight: 400; }
+  .nopq-step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: var(--blue-deep);
+    color: #fff;
+    white-space: nowrap;
+  }
+  .nopq-row-title { font-family: var(--font-jp); font-weight: 500; font-size: 14px; }
+
+  /* ── Prompt Pills ─────────────── */
+  .gem-prompts {
+    padding: 14px 36px 18px;
+    background: rgba(236, 213, 240, 0.10);
+    border-top: 1px solid rgba(201, 160, 217, 0.25);
+  }
+  .gem-prompts-label {
+    font-size: 14px;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+    font-family: var(--font-body);
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .prompt-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .prompt-pill {
+    font-family: var(--font-jp);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 9px 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(201, 160, 217, 0.55);
+    color: var(--purple-deep);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .prompt-pill:hover { background: var(--purple); border-color: rgba(201,160,217,0.80); transform: translateY(-1px); }
+  .prompt-pill.copied { background: var(--purple-mid); border-color: var(--purple-mid); color: #fff; }
+
+  /* ── STEP 說明區：白底；指令複製區：深色底 ── */
+  .gem-row-s1, .gem-row-s2, .gem-row-s34,
+  .gem-row-open.gem-row-s2 { background: rgba(255,255,255,0.72); }
+  .gem-row-s1:hover { background: rgba(255,255,255,0.90); }
+  .gem-row-open.gem-row-s2:hover { background: rgba(255,255,255,0.90); }
+  .gem-row-s34:hover { background: rgba(255,255,255,0.90); }
+
+  /* 指令複製區深色底 */
+  /* 指令複製區：漸層渲染，不是實心 */
+  .gem-prompts-s1 {
+    background: linear-gradient(135deg, rgba(74,128,67,0.16) 0%, rgba(74,128,67,0.04) 100%);
+    border-top: 1px solid rgba(74,128,67,0.15);
+  }
+  .gem-prompts-s2 {
+    background: linear-gradient(135deg, rgba(78,168,191,0.16) 0%, rgba(78,168,191,0.04) 100%);
+    border-top: 1px solid rgba(78,168,191,0.15);
+  }
+
+  /* 漸層底上的文字與 pill 用深色系 */
+  .gem-prompts-s1 .gem-prompts-label { color: #3a6b34; font-weight: 500; }
+  .gem-prompts-s2 .gem-prompts-label { color: var(--ink); font-weight: 500; }
+  .gem-prompts-s1 .prompt-pill {
+    background: rgba(255,255,255,0.75);
+    border-color: rgba(74,128,67,0.45);
+    color: #3a6b34;
+    font-family: var(--font-body);
+  }
+  .gem-prompts-s1 .prompt-pill:hover { background: rgba(255,255,255,0.95); border-color: rgba(74,128,67,0.75); transform: translateY(-1px); }
+  .gem-prompts-s1 .prompt-pill.copied { background: #4a8043; border-color: #4a8043; color: #fff; }
+  .gem-prompts-s2 .prompt-pill-blue {
+    background: rgba(255,255,255,0.75);
+    border-color: rgba(78,168,191,0.45);
+    color: var(--blue-deep);
+    font-family: var(--font-body);
+  }
+  .gem-prompts-s2 .prompt-pill-blue:hover { background: rgba(255,255,255,0.95); border-color: rgba(78,168,191,0.75); transform: translateY(-1px); }
+  .gem-prompts-s2 .prompt-pill-blue.copied { background: var(--blue-deep); border-color: var(--blue-deep); color: #fff; }
+
+  .gem-prompts-s34 {
+    background: linear-gradient(135deg, rgba(138,95,160,0.14) 0%, rgba(138,95,160,0.04) 100%);
+    border-top: 1px solid rgba(138,95,160,0.15);
+  }
+  .gem-prompts-s34 .gem-prompts-label { color: var(--purple-deep); font-weight: 500; }
+  .gem-prompts-s34 .prompt-pill {
+    background: rgba(255,255,255,0.78);
+    border-color: rgba(138,95,160,0.45);
+    color: var(--purple-deep);
+    font-family: var(--font-body);
+  }
+  .gem-prompts-s34 .prompt-pill:hover { background: rgba(255,255,255,0.95); border-color: rgba(138,95,160,0.75); transform: translateY(-1px); }
+  .gem-prompts-s34 .prompt-pill.copied { background: var(--purple-deep); border-color: var(--purple-deep); color: #fff; }
+
+  /* 前往 Gem 實心按鈕 */
+  .prompt-pill-goto {
+    font-family: var(--font-jp);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 9px 20px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .prompt-pill-goto:hover { opacity: 0.85; transform: translateY(-1px); }
+  .prompt-pill-goto-green  { background: #4a8043; }
+  .prompt-pill-goto-purple { background: var(--purple-deep); }
+
+  /* 步驟說明裡的連結按鈕 */
+  .lm-step-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: #fff;
+    text-decoration: none;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+    transition: opacity 0.2s;
+  }
+  .lm-step-link:hover { opacity: 0.82; }
+  .lm-step-link-green { background: #4a8043; }
+  .lm-step-link-blue  { background: var(--blue-deep); }
+
+  .gem-step-tag {
+    font-family: var(--font-en);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    padding: 3px 9px;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .tag-step-1  { background: var(--green-deep); }
+  .tag-step-2  { background: var(--blue-deep); }
+  .tag-step-34 { background: var(--purple-deep); }
+
+  /* NotebookLM row（div，不是 a，可放 button） */
+  .gem-row-open {
+    display: block;
+    padding: 28px 36px;
+    color: inherit;
+    transition: background 0.2s;
+  }
+  .gem-row-open:hover { background: rgba(205, 233, 238, 0.18); }
+  .gem-row-open .tool-why { color: var(--ink); }
+  .notebook-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-en);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--blue-deep);
+    text-decoration: none;
+    margin-top: 12px;
+    padding: 6px 14px;
+    border: 1px solid rgba(78,168,191,0.40);
+    border-radius: 6px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .notebook-link:hover { background: rgba(205,233,238,0.35); border-color: var(--blue-deep); }
+
+  /* ── NotebookLM 操作步驟折疊 ── */
+  .lm-steps-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-family: var(--font-jp);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue-deep);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .lm-steps-toggle::before {
+    content: '▶';
+    font-size: 11px;
+    display: inline-block;
+    transition: transform 0.25s;
+  }
+  .lm-steps-toggle.open::before { transform: rotate(90deg); }
+
+  .lm-steps-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+  }
+  .lm-steps-body.open { max-height: 1200px; }
+
+  .lm-step-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 16px;
+  }
+  .lm-step-num {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--blue-deep);
+    color: #fff;
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .lm-step-text {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .lm-step-text strong { font-weight: 500; }
+  .lm-step-img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+    margin-top: 10px;
+    border: 1px solid rgba(205,233,238,0.60);
+    cursor: zoom-in;
+    transition: opacity 0.2s;
+  }
+  .lm-step-img:hover { opacity: 0.88; }
+
+  /* ── Lightbox ─────────────────── */
+  #lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(30,46,55,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    padding: 24px;
+  }
+  #lightbox.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #lightbox img {
+    max-width: 92vw;
+    max-height: 88vh;
+    border-radius: 10px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.45);
+    display: block;
+    transform: scale(0.95);
+    transition: transform 0.25s ease;
+  }
+  #lightbox.open img { transform: scale(1); }
+  #lightbox-close {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  #lightbox-close:hover { background: rgba(255,255,255,0.28); }
+
+  /* Blue pill variant for NotebookLM */
+  .prompt-pill-blue {
+    border-color: rgba(78,168,191,0.55);
+    color: var(--blue-deep);
+  }
+  .prompt-pill-blue:hover { background: var(--blue); border-color: rgba(78,168,191,0.80); }
+  .prompt-pill-blue.copied { background: var(--blue-deep); border-color: var(--blue-deep); color: #fff; }
+
+  /* ── 懸浮章節選單 ─────────────── */
+  #side-nav {
+    position: fixed;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 998;
+  }
+  .side-nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .side-nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(78,168,191,0.28);
+    border: 1.5px solid rgba(78,168,191,0.50);
+    flex-shrink: 0;
+    transition: background 0.25s, transform 0.25s, border-color 0.25s;
+  }
+  .side-nav-item:hover .side-nav-dot,
+  .side-nav-item.active .side-nav-dot {
+    background: var(--blue-deep);
+    border-color: var(--blue-deep);
+    transform: scale(1.5);
+  }
+  .side-nav-label {
+    font-family: var(--font-jp);
+    font-size: 11px;
+    color: var(--ink-light);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    background: rgba(255,255,255,0.92);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(205,233,238,0.65);
+    box-shadow: 0 1px 6px rgba(78,168,191,0.08);
+  }
+  .side-nav-item:hover .side-nav-label,
+  .side-nav-item.active .side-nav-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  @media (max-width: 768px) { #side-nav { display: none; } }
 
   /* ── 響應式 ──────────────────── */
   @media (max-width: 600px) {
@@ -946,30 +1337,138 @@
     <!-- Gem 群組標題 -->
     <div class="group-label" id="tool-gem">打造 NOPQ 亮點檔案</div>
 
-    <!-- 兩個 Gem 合體卡片 -->
+    <!-- 製作者標注移到表格上方 -->
     <p class="attribution">陳琬琳老師製作</p>
+
+    <!-- NOPQ 四步驟總覽表格 -->
+    <div class="nopq-table">
+      <div class="nopq-table-head">
+        <div></div>
+        <div>步驟重點</div>
+        <div>使用 AI 工具</div>
+        <div>執行過程與預期成果</div>
+      </div>
+      <div class="nopq-table-row">
+        <div><span class="nopq-step-badge">STEP 1</span></div>
+        <div class="nopq-row-title">平凡中的優勢亮點</div>
+        <div>我太平凡了嗎？<br>那就用平凡來對決</div>
+        <div>透過 Gem 對話，收斂出 3 個代表你的個人特色</div>
+      </div>
+      <div class="nopq-table-row">
+        <div><span class="nopq-step-badge">STEP 2</span></div>
+        <div class="nopq-row-title">校系的解碼與對位</div>
+        <div>NotebookLM<br>Gemini</div>
+        <div>AI 搜集資料及整理出 4 項校系關鍵資訊（資源與課程）</div>
+      </div>
+      <div class="nopq-table-row">
+        <div><span class="nopq-step-badge">STEP 3</span></div>
+        <div class="nopq-row-title">多元表現綜整心得</div>
+        <div>來琬 NOPQ 五分熟</div>
+        <div>上傳多元表現檔案，AI 找出 3 個亮點，透過指令完成初稿</div>
+      </div>
+      <div class="nopq-table-row">
+        <div><span class="nopq-step-badge">STEP 4</span></div>
+        <div class="nopq-row-title">完成學習歷程自述</div>
+        <div>來琬 NOPQ 五分熟</div>
+        <div>上傳課程成果檔案，AI 找出 3 個亮點，透過指令完成初稿</div>
+      </div>
+    </div>
+
+    <!-- 兩個 Gem 合體卡片 -->
     <div class="tool-card gem-group">
-      <a class="gem-row" href="https://gemini.google.com/gem/1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej?usp=sharing" target="_blank">
+      <!-- STEP 1：平凡 Gem -->
+      <a class="gem-row gem-row-s1" href="https://gemini.google.com/u/2/gem/b65da2db2a0b" target="_blank">
+        <span class="gem-step-tag tag-step-1">STEP 1</span>
         <div class="gem-row-header">
           <div class="tool-name">
-            Gem「我太平凡了嗎」
+            Gem「我太平凡了嗎」<span style="font-size:13px;color:var(--green-deep);margin-left:4px;">↗</span>
             <span>平凡中的優勢亮點</span>
           </div>
-          <span class="tool-tag tag-purple">備審亮點</span>
+          <span class="tool-tag tag-green">備審亮點</span>
         </div>
         <p class="tool-why" style="margin-bottom:0;">協助學生在備審準備過程中找到自己的亮點，讓「覺得自己很普通」不再是卡關的理由。</p>
       </a>
+      <!-- 指令複製 Pills -->
+      <div class="gem-prompts gem-prompts-s1">
+        <p class="gem-prompts-label">▸ 講座示範用指令｜選一個學生類型，複製後貼入 Gem，整理為【表一】</p>
+        <div class="prompt-pills">
+          <button class="prompt-pill" onclick="copyPrompt('plain','A',this)">A 同學：人文財法學群</button>
+          <button class="prompt-pill" onclick="copyPrompt('plain','B',this)">B 同學：理工學群</button>
+          <button class="prompt-pill" onclick="copyPrompt('plain','C',this)">C 同學：醫藥學群</button>
+          <button class="prompt-pill" onclick="copyPrompt('plain','D',this)">D 同學：技高畜牧農學群</button>
+          <a class="prompt-pill-goto prompt-pill-goto-green" href="https://gemini.google.com/u/2/gem/b65da2db2a0b" target="_blank">前往 Gem ↗</a>
+        </div>
+      </div>
+
       <div class="gem-row-divider"></div>
-      <a class="gem-row" href="https://gemini.google.com/gem/1rCuTXfJYe63srS8GM0woda8M_4sOYoIS?usp=sharing" target="_blank">
+
+      <!-- STEP 2：NotebookLM -->
+      <div class="gem-row gem-row-open gem-row-s2">
+        <span class="gem-step-tag tag-step-2">STEP 2</span>
         <div class="gem-row-header">
           <div class="tool-name">
-            Gem「NOPQ 五分熟」
+            NotebookLM「校系關鍵資訊整理」
+            <span>notebooklm.google.com</span>
+          </div>
+          <span class="tool-tag tag-blue">校系解碼</span>
+        </div>
+        <p class="tool-why" style="margin-bottom:0;">AI 搜集整理 4 項目標校系關鍵資訊，協助學生快速掌握人才特質、資源、課程與職涯方向，找出對位亮點。</p>
+        <!-- 操作步驟折疊 -->
+        <button class="lm-steps-toggle" onclick="toggleLMSteps(this)">操作步驟說明</button>
+        <div class="lm-steps-body">
+          <div class="lm-step-item">
+            <div class="lm-step-num">1</div>
+            <div class="lm-step-text">
+              <a href="https://notebooklm.google.com/" target="_blank" style="color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(74,128,67,0.55);font-weight:500;"><strong>在 NotebookLM 建立筆記本➨</strong></a><br>
+              搜尋目標校系相關資料，將搜尋結果點「匯入」加入筆記本
+              <img class="lm-step-img" src="assets/notebook-step1.png" alt="NotebookLM 建立筆記本示意" onclick="openLightbox(this)">
+            </div>
+          </div>
+          <div class="lm-step-item">
+            <div class="lm-step-num">2</div>
+            <div class="lm-step-text">
+              <a href="https://gemini.google.com/" target="_blank" style="color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(78,168,191,0.55);font-weight:500;"><strong>回到 Gemini，選取 NotebookLM 筆記本➨</strong></a><br>
+              在 Gemini 左側選取剛建立的筆記本，再貼入下方複製的指令
+              <img class="lm-step-img" src="assets/notebook-step2.png" alt="Gemini 選取 NotebookLM 筆記本示意" onclick="openLightbox(this)">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="gem-prompts gem-prompts-s2">
+        <p class="gem-prompts-label">▸ 講座示範用指令｜複製後貼入空白Gemini頁面，整理為【表二】</p>
+        <div class="prompt-pills">
+          <button class="prompt-pill prompt-pill-blue" onclick="copyPrompt('notebook','A',this)">同學A：政大法律學系</button>
+          <button class="prompt-pill prompt-pill-blue" onclick="copyPrompt('notebook','B',this)">同學B：中山電機</button>
+          <button class="prompt-pill prompt-pill-blue" onclick="copyPrompt('notebook','C',this)">同學C：成大藥學</button>
+          <button class="prompt-pill prompt-pill-blue" onclick="copyPrompt('notebook','D',this)">同學D：中興動物科學</button>
+        </div>
+      </div>
+
+      <div class="gem-row-divider"></div>
+
+      <!-- STEP 3+4：NOPQ 五分熟 -->
+      <a class="gem-row gem-row-s34" href="https://gemini.google.com/gem/c508409ff144?usp=sharing" target="_blank">
+        <span class="gem-step-tag tag-step-34">STEP 3 ＋ 4</span>
+        <div class="gem-row-header">
+          <div class="tool-name">
+            Gem「NOPQ 五分熟」<span style="font-size:13px;color:var(--purple-deep);margin-left:4px;">↗</span>
             <span>多元表現綜整心得、學習歷程自述</span>
           </div>
           <span class="tool-tag tag-purple">備審自述</span>
         </div>
-        <p class="tool-why" style="margin-bottom:0;">協助學生完成申請入學最重要的兩份文件——多元表現綜整心得與學習歷程自述。</p>
+        <p class="tool-why" style="margin-bottom:6px;">協助學生完成申請入學最重要的兩份文件——多元表現綜整心得與學習歷程自述。</p>
+        <p style="font-size:13px;color:var(--purple-deep);opacity:0.80;letter-spacing:0.03em;margin-bottom:0;">前置作業完成～最終 STEP 4 將另期分享</p>
       </a>
+      <div class="gem-prompts gem-prompts-s34">
+        <p class="gem-prompts-label">▸ 講座示範用指令｜選一個學生類型，複製後貼入 Gem，整理為【表三】</p>
+        <div class="prompt-pills">
+          <button class="prompt-pill" onclick="copyPrompt('nopq','A',this)">A 同學：人文財法學群</button>
+          <button class="prompt-pill" onclick="copyPrompt('nopq','B',this)">B 同學：理工學群</button>
+          <button class="prompt-pill" onclick="copyPrompt('nopq','C',this)">C 同學：醫藥學群</button>
+          <button class="prompt-pill" onclick="copyPrompt('nopq','D',this)">D 同學：技高畜牧農學群</button>
+          <a class="prompt-pill-goto prompt-pill-goto-purple" href="https://gemini.google.com/gem/c508409ff144?usp=sharing" target="_blank">前往 Gem ↗</a>
+        </div>
+      </div>
     </div>
 
     <!-- 配套講義大按鈕 -->
@@ -1015,15 +1514,15 @@
         <div class="qr-sem">下學期 ｜ 二階整備</div>
       </div>
       <div class="qr-item">
-        <a href="https://gemini.google.com/gem/1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej?usp=sharing" target="_blank">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=2E4049&bgcolor=F7FAFB&data=https%3A%2F%2Fgemini.google.com%2Fgem%2F1YcUz7dFuq7KCCIC6YcEf9RRr9LR3ESej%3Fusp%3Dsharing" alt="Gem 平凡 QR Code" style="width:80px;height:80px;display:block;margin:0 auto 14px;border-radius:6px;">
+        <a href="https://gemini.google.com/u/2/gem/b65da2db2a0b" target="_blank">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=2E4049&bgcolor=F7FAFB&data=https%3A%2F%2Fgemini.google.com%2Fu%2F2%2Fgem%2Fb65da2db2a0b" alt="Gem 平凡 QR Code" style="width:80px;height:80px;display:block;margin:0 auto 14px;border-radius:6px;">
         </a>
         <div class="qr-name">Gem 亮點發掘</div>
         <div class="qr-sem">下學期 ｜ 備審亮點</div>
       </div>
       <div class="qr-item">
-        <a href="https://gemini.google.com/gem/1rCuTXfJYe63srS8GM0woda8M_4sOYoIS?usp=sharing" target="_blank">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=2E4049&bgcolor=F7FAFB&data=https%3A%2F%2Fgemini.google.com%2Fgem%2F1rCuTXfJYe63srS8GM0woda8M_4sOYoIS%3Fusp%3Dsharing" alt="Gem NOPQ QR Code" style="width:80px;height:80px;display:block;margin:0 auto 14px;border-radius:6px;">
+        <a href="https://gemini.google.com/gem/c508409ff144?usp=sharing" target="_blank">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&color=2E4049&bgcolor=F7FAFB&data=https%3A%2F%2Fgemini.google.com%2Fgem%2Fc508409ff144%3Fusp%3Dsharing" alt="Gem NOPQ QR Code" style="width:80px;height:80px;display:block;margin:0 auto 14px;border-radius:6px;">
         </a>
         <div class="qr-name">Gem NOPQ 五分熟</div>
         <div class="qr-sem">下學期 ｜ 備審自述</div>
@@ -1038,6 +1537,32 @@
   <span style="opacity:0.6;">made with ✦ by 試務組</span>
 </footer>
 
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- 懸浮章節選單 -->
+<nav id="side-nav">
+  <a class="side-nav-item" href="#hero">
+    <span class="side-nav-label">升學輔導工具分享</span>
+    <span class="side-nav-dot"></span>
+  </a>
+  <a class="side-nav-item" href="#s1">
+    <span class="side-nav-label">上學期工具</span>
+    <span class="side-nav-dot"></span>
+  </a>
+  <a class="side-nav-item" href="#s2">
+    <span class="side-nav-label">下學期工具</span>
+    <span class="side-nav-dot"></span>
+  </a>
+  <a class="side-nav-item" href="#overview">
+    <span class="side-nav-label">快速掃碼</span>
+    <span class="side-nav-dot"></span>
+  </a>
+</nav>
+
 <!-- 回到頂端 -->
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到頂端">
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1051,6 +1576,549 @@
   window.addEventListener('scroll', () => {
     btn.classList.toggle('visible', window.scrollY > 320);
   });
+
+  // ── 指令內容 ───────────────────
+  // 懸浮選單 active 狀態
+  const navItems = document.querySelectorAll('.side-nav-item');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.side-nav-item[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+  ['hero','s1','s2','overview'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
+  });
+
+  const PROMPTS = {
+    nopq: {
+      A: `請幫我寫出
+1. 針對每份檔案個別做出的摘要（約100字）
+2. 將檔案中我所呈現的能力，統整收斂出 3 個最能代表我能力標籤，並且每一個能力標籤中需要說明我在檔案中對應的表現
+3. 根據我的三個亮點請用白話文寫出500個字，讓我可以跟教授介紹我的學習成果
+
+【檔案一】
+未來想像與生涯進路
+從桌遊與牌卡認識自己的高二選修課
+
+一、選課動機
+平日就有逛大學校系網與 ColleGo 的習慣，選課時剛好看到「未來想像與生涯進路」這門課，又恰好涵蓋我有興趣的法政與管理學群相關元素，便毫不猶豫報名。我給自己的目標是：用一學期確認我比較喜歡商業還是法律。
+
+二、課程內容
+- 透過「人生模擬」類桌遊體驗選擇與運氣的互動。
+- 使用興趣卡、能力卡、價值觀卡進行自我探索。
+- 觀看具有人生抉擇主題的電影，並進行小組討論。
+- 期末以「未來職業開箱圖」與「生涯探索拼圖」呈現自我認識。
+
+三、印象深刻的學習片段
+桌遊裡的人生隱喻
+我是好勝心強的人，玩到一半被一張卡牌直接淘汰時非常不甘心。後來才意識到，那其實是人生的真實樣貌——再周全的計畫，也會被突發事件影響。重點不是不被影響，而是被影響之後仍能調整。
+
+電影帶來的反思
+我們觀看一部以拳擊為主題的電影，主角為了追夢承擔了與家人疏離的代價。這讓我意識到每個選擇都有相對應的犧牲，沒有所謂「完美的選項」。
+
+四、期末沒有答案的困惑
+學期結束時，我仍沒有確定到底比較喜歡商業還是法律。學校的一場大師講座中，教授說：「很多大學生甚至社會人士都還在摸索方向，何況一個高中生。」這句話讓我釋懷——這堂課不是要我立刻決定未來，而是讓我更了解自己擁有什麼、又缺什麼。
+
+五、課程對我的影響
+- 面對不確定性：學會把焦慮拆解成下一步可以採取的具體行動。
+- 擴大視野：開始注意 AI、永續、大數據等新興領域與我感興趣的法政、商管之間的交集。
+- 決策框架：把「我在意什麼價值」放在「我擅長什麼能力」前面思考。
+
+【檔案二】
+公民專題創作成果報告
+以 SDGs 5 性別平等為主題的微電影創作
+
+一、計畫摘要
+本作品以聯合國永續發展目標第 5 項「性別平等」為主軸，鎖定「職場女性的雙重角色」議題，透過小組合作完成一部短片。從資料蒐集、劇本撰寫到拍攝剪輯，全程由小組分工完成，期末於課堂播映。
+
+二、選題動機
+生活周遭充斥著性別平等的宣傳口號，但我好奇：現代社會的不平等是否還隱藏在那些我們已經習以為常的地方？在公民專題創作課需要產出議題倡議影片時，正好讓我把這個納悶轉化為作品。
+
+三、執行流程
+- 第一階段：以九宮格與心智圖整理性別議題，篩選可拍攝且具有資料支撐的題目。
+- 第二階段：撰寫劇本、招募演員、安排拍攝場地與設備。
+- 第三階段：剪輯與成果發表。
+
+四、遇到的困難
+拍攝場地
+原本想跟學校借辦公室拍攝，但時間安排不順利。最後我們將「兩間獨立辦公室」的劇情改為「一間共用工作空間」，並改租圖書館討論室。幼兒園場景因為找不到臨時小演員而取消。
+
+演員的台詞節奏
+每位夥伴對台詞的熟悉度不同，唸起來節奏完全不一致。我們嘗試過分段錄音再合成，但效果不佳。最後決定只要意思有正確傳達，演員可以用自己最自然的方式表達。
+
+五、心得反思
+- 事實：學到 Word 編排、資料整理、劇本設計與基本剪輯，是一次跨技能的整合練習。
+- 感受：太理想化的構想常常和拍攝現實脫節，學會在過程中下放彈性。
+- 發現：團隊合作裡，溝通比技術重要。
+- 未來：希望在第二集探討男性在家庭情緒勞動中的角色。
+
+六、延伸學習方向
+- 政策面：研究性平相關法規對職場、家庭分工的實際影響。
+- 文化面：探討東亞文化中「賢妻良母」期待對女性職涯的隱性壓力。
+- 科技面：智慧家電是否真的能減輕家務勞動，或只是轉移到另一種「監督勞動」。
+
+【檔案三】
+演辯社社團幹部生涯
+社長一年任期的觀察與成長
+
+一、選擇擔任幹部的初心
+高一暑假看見學長姐在台上侃侃而談的模樣，我確定自己想成為那樣的人。從小喜歡擔任各種領導者角色，所以我選擇參選社長，希望豐富高中生活、也訓練自己。
+
+二、社課規劃與校外參訪
+一學期六堂社課，前四堂教導辯論基本概念並穿插互動遊戲；第五堂舉辦社內賽，讓沒有比賽經驗的成員體驗辯論；最後一堂則安排校外參訪。我們先後參訪過法院與地檢署，從旁聽真實開庭到模擬法庭，都讓社員對司法運作有更具體的理解。
+
+三、聯合社課：第一次主辦的混亂與學習
+因為我們提早一個月才開始邀請其他社團合作，最後勉強找到願意配合的兩個社團。15 人共事且彼此不熟，會議經常陷入沉默。後來我們改採「每社派 2 位代表」共 6 人開會，並事先擬好會議大綱與預期目標，討論效率才終於提升。
+
+四、社團舉辦的辯論盃
+社團每年舉辦一場校內辯論比賽。原本主要經費來源是市府青年局補助，但那年補助名額提早額滿。我們經歷了向校方詢問、向民意代表發訊、向校友會募款的完整流程，最終透過提高報名費、邀請社內學長姐擔任裁判等方式，把預算缺口補上。
+
+五、面對衝突的轉變
+- 與社師：因為對社課自由度的期望不同，我學會在表達感謝與堅持立場之間找到平衡。
+- 與學長姐：在尊重前輩經驗的前提下，爭取屬於這屆幹部的決策空間。
+- 與同屆幹部：從一開始的「逃避吵架」進化到願意直接把分歧攤開，逐一討論。
+
+六、一年後的自己
+擔任社長之前，我以為領導力等於決策力；卸任之後我才發現，更重要的是傾聽力。我也意識到自己仍需練習的事情：策略性溝通、情緒調適、以及把制度設計得更完善，減少臨時變動的成本。
+
+【檔案四】
+民法學培力營參與紀錄
+在三天的密集課程中跨出新領域的舒適圈
+
+一、報名動機
+我對法律與商業議題一直有興趣，從學校資源中得知有大學辦理三天兩夜的法律營隊，主軸涵蓋憲政體制與淨零轉型，行程包括成果發表與律所、NGO 參訪。對我而言，這是一個能同時練習表達、認識領域、並與不同地區學生交流的好機會。
+
+二、營隊內容概覽
+- 第一天：開場式、SDGs 與淨零轉型、憲政體制專題。
+- 第二天：議題倡議實務（國會遊說、監察院陳情、媒體訴求）、分組提案、律師健檢。
+- 第三天：成果發表會。
+
+三、教學方式的衝擊：從輸入轉向提問
+教授們的授課習慣與高中老師不太一樣，他們不直接給答案，而是不斷以問題引導學生思考。一開始我會緊張到腦袋空白，但慢慢地我學會利用「先擷取關鍵字、再產生自己的初步答案」這套節奏來面對。
+
+四、從零到報告：壓力下的提案歷程
+短時間內要完成議題發想、資料蒐集、簡報製作、答辯訓練是一大挑戰。我們在前一晚才被告知需要把字體放大、簡化內容，熬夜修改到凌晨。實際發表時還因為夥伴緊張而臨時被分配更多時間，最後幾乎是脫稿演講。但這段經驗讓我學會「再充足的準備也無法預料突發狀況，唯一能依賴的是平日累積的口語反應」。
+
+五、參訪：律所與 NGO
+我們先後參訪了一間大型律師事務所與一間規模較小的個人所，兩者氛圍與案件類型完全不同，讓我看見職涯有更多想像空間。下午到 NGO 的參訪則讓我理解公民課本中第三部門組織的實際運作，與書本中的抽象描述有很大落差。
+
+六、反思
+- 落選不是結束：題目聚焦度比題目廣度更重要，這是評審給我們的最大提醒。
+- 團隊合作不只是分工：要讓每位夥伴都有發揮的舞台。
+- 路是寬廣的：要當律師不一定要讀法律系，但無論哪條路都需要提早累積實作經驗。`,
+
+      B: `請幫我寫出
+1. 針對每份檔案個別做出的摘要（約100字）
+2. 將檔案中我所呈現的能力，統整收斂出 3 個最能代表我能力標籤，並且每一個能力標籤中需要說明我在檔案中對應的表現
+3. 根據我的三個亮點請用白話文寫出500個字，讓我可以跟教授介紹我的學習成果
+
+【檔案一】
+物理與地科自然探究課程學習成果
+從紙飛機到油壓緩衝的實驗探索
+
+一、課程說明
+本課程由物理與地球科學老師共同授課，以「航向太空」為主軸，安排數個跨領域實作活動，培養學生控制變因、紀錄資料與小組論證的能力。
+
+二、作品概覽
+- 期末：油壓舉重與緩衝實驗（模擬月球、火星環境）。
+- 期中：重量對紙飛機飛行距離的影響。
+- 日常作業：以圖表化解析歷屆學測題。
+
+三、選擇實驗報告的動機
+期末成果可選擇英文報告或實驗紀錄。我刻意選擇較不熟悉的實驗紀錄，希望挑戰自己從數據出發推論結論的能力。老師提供了實驗的引導，我與兩位同學合作，過程比想像中更順利。
+
+四、印象深刻的學習
+從零開始學 Excel 散佈圖
+紙飛機實驗需要繪製散佈圖並標示標準差。我原本只會基本圖表，逐步學會了如何切換 x、y 軸、標示誤差條，後來甚至有時間幫其他組同學完成圖表。
+
+刻度設計的失誤
+期末實驗時，我們沒注意到變因刻度太接近，導致兩組數據幾乎重疊。雖然當下覺得怪怪的，但時間不夠重做，只能在報告中誠實標示這個限制。這次教訓讓我意識到：實驗設計階段的審慎，比資料分析階段的補救更重要。
+
+五、實驗摘要：油壓裝置在月球、火星環境的適用性
+- 使用空氣與水分別作為填充物，比較舉重與緩衝表現。
+- 結果：水因不可壓縮而更穩定，舉重幅度與緩衝吸震表現皆優於空氣。
+- 討論：月球真空、火星低氣壓下，空氣方案易失壓；水方案需處理低溫結冰問題。
+
+六、紙飛機實驗摘要
+我們在控制相同摺法、發射角度與發射器的條件下，依序加重紙飛機並紀錄飛行距離。結果顯示重量與飛行距離呈負相關，符合升力不足、重力增加與空氣阻力增強的推論。
+
+七、跨領域反思
+身為偏社會組性向的學生，這堂課讓我看到科學分析跟辯論其實有相同的內核：先有觀察、再有解釋、最後接受檢驗。「沒有絕對的對錯，只有能不能解釋」這句話，是我這學期最大的收穫。
+
+【檔案二】
+五年數資培育之路
+中山大學應用數學系高中生數學科學研究人才培育計畫
+
+一、計畫摘要
+我自國二起參與中山大學應用數學系所辦理的「南部高中學生數學科學研究人才培育計畫」，五年間每兩週一次的週日完整投入大學端的數學訓練，從初級班、中級班一路完成高級班結業。
+
+二、為何選擇數學作為長期投入的領域
+初級班第一堂課，教授沒有寫公式，而是丟出「阿基里斯追不到烏龜」的悖論，要我們嘗試自己定義「無限接近」是什麼意思。當下的我才第一次意識到，極限不是一個被規定的式子，而是一種被人類創造出來、用以馴服無窮的語言。
+
+三、課程內容
+純數學主軸：微積分基礎、線性代數入門、離散數學與組合、數論初探。
+應用與計算數學：機率與統計推論、泰勒展開與級數收斂、矩陣運算與線性方程組。
+
+四、競賽與專題
+- 高中數學學科能力競賽校內初賽入選，進入區域複賽。
+- TRML 全國高中數學能力競賽團體賽。
+- 校內自然科學探究與實作競賽：以「最短路徑演算法在校園動線規劃上的應用」獲佳作。
+- 專題一：Dijkstra 演算法的數學基礎與校園應用。
+- 專題二：心率變異與微積分。
+
+五、程式語言與數學軟體
+C++：強迫使用者先把演算法寫清楚才能寫程式。
+SageMath：高級班核心評量，限時完成微分、積分、矩陣、特徵值與泰勒展開。
+GeoGebra：把看不見的式子畫出來，理解雙曲線、橢圓、極座標方程式。
+
+六、跨領域應用
+Google Maps 與圖論、運動穿戴裝置與微積分、經濟與資料分析。
+
+七、五年的收穫
+從一個害怕證明題的國中生，成為願意主動把問題「形式化」再「程式化」的高中生。
+
+【檔案三】
+探究與實作學習歷程
+達文西橋結構研究與三項化學基礎實驗
+
+一、課程概述
+高一探究與實作分為上、下學期。上學期以化學為主，包含層析、容器校正與酸鹼指示劑三項實驗；下學期以物理為主，自選研究主題完成完整實驗設計、執行與報告。
+
+二、選題：冰棒棍達文西橋
+小組三人在英文閱讀材料中讀到橋梁因結構問題坍塌的新聞，結合台灣地震，決定以「結構承重」為主題，以冰棒棍設計類似田字結構的達文西橋。
+
+三、研究發現
+- 在相同負重下，多層結構的下降量明顯小於單層。
+- 層數過多時反而因不穩定易倒塌。
+- 「穩定」與「層數」之間存在合理的工程平衡點。
+
+四、化學實驗紀錄
+層析實驗、容器校正（顯示部分容器誤差大到出乎意料）、酸鹼指示劑配製。
+
+五、心得反思
+合作的核心是分工；結構設計帶來的啟發：穩定來自彼此的支撐，跟團隊合作其實一樣。
+
+【檔案四】
+複合吸波材料對行動電話電磁波之屏蔽探討
+以矽藻土為基底的複合材料初步研究
+
+一、研究動機
+物理課中老師將手機放入鋼鐵水壺後訊號瞬間中斷，引發我對法拉第籠效應的興趣，進而嘗試以矽藻土為基底混合不同粉末比較屏蔽效果。
+
+二、研究方法
+將待測材料置於手機與偵測器之間，紀錄不同材料在乾燥與泡水兩種狀態下的屏蔽值。
+
+三、研究結果
+乾燥狀態下，備長炭屏蔽效果最穩定。泡水後，「矽藻土 + 10g 活性碳 + 5g 鋁粉」表現最佳。距離仍是最有效的屏蔽方法。
+
+四、印象最深刻的插曲
+實驗中期偵測器突然鎖在固定極大值，花了一整晚才發現是電池電量過低。學到量測工具本身的可靠性需先確認。
+
+五、結論與後續方向
+碳材為基底的複合材料有潛力，未來希望延伸到電機、材料領域研究智慧吸波材料。`,
+
+      C: `請幫我寫出
+1. 針對每份檔案個別做出的摘要（約100字）
+2. 將檔案中我所呈現的能力，統整收斂出 3 個最能代表我能力標籤，並且每一個能力標籤中需要說明我在檔案中對應的表現
+3. 根據我的三個亮點請用白話文寫出500個字，讓我可以跟教授介紹我的學習成果
+
+【檔案一】
+SDGs 永續發展目標：氣候行動
+高二多元選修課程學習成果
+
+一、課程說明
+本課程聚焦聯合國永續發展目標中的「氣候行動」議題，從全球趨勢出發，討論國際氣候協議、能源政策、循環經濟，再回到日常生活的減碳實踐，同時包含英文口說與聽力訓練。
+
+二、作品說明
+英文主題影片、英文演講稿（以台灣農損與氣候通膨為切入點）、三週減碳挑戰。
+
+三、學習過程中印象深刻的片段
+一次唸錯時態的尷尬讓我之後再也不害怕舉手。學會用工具補強表達：Grammarly 修文法、QuillBot 改詞彙、ChatGPT 確認語意、Canva 製作影片。
+
+四、三週減碳挑戰
+從不吃牛肉開始，粗估每餐能減少約 40 公斤碳排，約等於一棵樹一年所能吸收的碳量。
+
+五、反思
+期中、期末報告分別都拿到 87 分，學期成績卻是 91 分，多出來的分數應該來自課堂上每一次舉手回答的累積。
+
+【檔案二】
+偏鄉醫療志工學習歷程
+從社區關懷據點看見都市與鄉村的醫療距離
+
+一、動機
+從小生活在都市，直到回到外公外婆居住的鄉村，才意識到「掛號」對許多長輩而言是需要事先安排的旅程。
+
+二、實地參與
+護理師的衛教課：重點是「怎麼描述自己的不舒服」這類最容易被忽略的事。
+藥師的用藥課：用台語耐心解釋用藥錯誤，讓我看見專業翻譯成「對方聽得懂的話」的重要。
+
+三、我重新看見的「醫者形象」
+對偏鄉長輩而言，更重要的進步是「服務的可及性」——讓他們不需翻山越嶺也能得到妥善照顧。
+
+四、反思
+如果無法消除長輩對醫院的恐懼、無法聽懂他們真正的擔憂，再先進的設備也派不上用場。
+
+【檔案三】
+特殊優良表現：學業表現進步歷程
+從校排 27% 到 2% 的自我管理紀錄
+
+一、背景
+高中第一次月考校排落在 27%，同時加入社團。面對「興趣與課業是否只能二選一」的質疑，選擇讓時間累積出證據。
+
+二、具體行動
+建立可執行的讀書節奏（紙本計畫本、三件最重要任務）；把社團邏輯拆解能力遷移到課業；忙碌時期設定「每天至少三十分鐘弱科複習」的最低底線。
+
+三、成果
+語文競賽取得全國賽資格並獲優等；校排 27% → 15% → 7% → 高三達 2%。
+
+四、反思
+學業表現不是由天賦決定，而是被「能否持續修正方法」拉開差距。
+
+【檔案四】
+高一生物實驗學習歷程
+從玻璃珠顯微鏡到細胞觀察
+
+一、課程說明
+高一生物課程涵蓋生物的構造與功能、遺傳與演化三大主題，本次紀錄聚焦「細胞的構造與功能」單元。
+
+二、實驗一：玻璃珠顯微鏡
+利用製鏡者方程式計算焦距，估算放大倍率約 167 倍。製作過程選定厚紙板為鏡座，雖然成像模糊，但能理解古人面對材料限制的不容易。
+
+三、實驗二：細胞的觀察
+學習四種水埋玻片製作方式，觀察口腔細胞、葉下表皮、香蕉果肉、鴨跖草等樣本。最大收穫是學會如何依據樣本選擇對應的製片方法。
+
+四、自我反思
+第一次完整使用 Word 編輯實驗紀錄，意識到事前架構規劃比邊寫邊改更省力。`,
+
+      D: `請幫我寫出
+1. 針對每份檔案個別做出的摘要（約100字）
+2. 將檔案中我所呈現的能力，統整收斂出 3 個最能代表我能力標籤，並且每一個能力標籤中需要說明我在檔案中對應的表現
+3. 根據我的三個亮點請用白話文寫出500個字，讓我可以跟教授介紹我的學習成果
+
+【檔案一】
+吉他帳號經營與創作歷程
+從練琴日記到屬於自己的視覺風格
+
+一、創立吉他帳號的初衷
+從小學中年級接觸吉他，逐漸從才藝變成日常放鬆與療癒的方式。看到素人吉他手分享 Cover，意識到自己也可以用影像為練習留下紀錄，目的不是經營網紅，而是把喜歡過的曲子收進專屬資料夾。
+
+二、影片製作的演進
+土法煉鋼起點（用課本堆手機支架）→ 建立「暖光、低飽和、聚焦在吉他與手指」的固定視覺風格 → 音與畫分離錄製（GarageBand 預錄音檔 + 剪輯軟體替換）。
+
+三、吉他在高三生活中的位置
+每天晚上留 20–30 分鐘給吉他，讓大腦從高速運算切換到低耗能模式，把當天的焦躁慢慢稀釋。
+
+四、反思
+曾經有陌生人留言說「謝謝你的影片，我今天心情好多了。」音樂的價值並不總是來自舞台。
+
+【檔案二】
+展演動物的動物福祉與消費者行為探討
+以高中生為對象的問卷研究
+
+一、研究動機
+上了畜保科後，老師介紹「動物五大自由」概念，才知道大象在水泥地上前後搖晃其實是壓力造成的刻板行為。起點問題：消費者到底會不會在意展演動物的福祉？
+
+二、研究目的
+了解展演動物定義與常見類型、調查高中生對展演動物福祉的認知程度、分析消費行為。
+
+三、研究方法
+自製問卷 22 題，有效樣本 156 份，涵蓋認知題、消費意願題、開放回應題。
+
+四、研究結果
+約 6 成高中生不知道「展演動物」與「動物展示」的福祉差異；若得知場所有刻板行為記錄，超過 7 成表示會改變參觀決定；「資訊揭露」比「道德訴求」更有影響力。
+
+五、心得
+做問卷比想像中累；「我以為大家都知道」的事情常常其實大家都不知道；議題不一定要靠激烈訴求，提供清楚資訊往往就能改變行為。
+
+【檔案三】
+民吉社學習歷程
+從一個人的練習到一個團隊的合作
+
+一、從獨奏走向合奏
+加入民吉社後才意識到「合奏」不是「同時演奏」，而是「彼此聆聽」。目標從學會高難度曲目改成學會與意見不同的人完成一場表演。
+
+二、文藝節：第一次經歷意見衝突
+兩位主唱風格截然不同（抒情 vs. 熱血）。我分別私下聆聽兩人真正在意的東西，整理後提出「兼具情感層次與節奏推進」的折衷曲目。合作的本質不是讓誰贏，而是讓每個人都覺得自己有被聽見。
+
+三、練習中的磨合
+把曲子拆段慢練、錄影互看、微調節拍器速度，從「哪裡都怪」到能整首流暢演奏。
+
+四、心得
+享受協調者的角色：當衝突出現時，停下來聽完雙方真正在意的價值，再找讓不同聲音調到同一頻率的方案。
+
+【檔案四】
+畜保科專題實作學習成果
+牧草辨識實習
+
+一、課程說明
+學會辨認常見牧草種類，了解每一種草的營養特性與適合餵食的動物，包含現場觀察、葉片與根部比對、口頭辨識考試。
+
+二、學到的牧草種類
+狼尾草、盤固拉草、百慕達草、蘇丹草、苜蓿，各有不同的外觀特徵與適合的家畜。
+
+三、實作流程
+田間觀察填寫辨識表 → 手機拍照回宿舍比對課本 → 室友互相抽考 → 期末口頭抽考（抽到十種牧草，當場說出名稱、特性、適合餵的動物）。
+
+四、遇到的困難
+百慕達草跟盤固拉草外觀相似，後來學會看葉鞘的毛跟葉子的硬度來區分。
+
+五、心得
+比較喜歡實際在田裡操作的課程，摸過的東西更容易記得。未來希望學習把牧草搭配成混合飼料，並了解不同季節的種植選擇。`
+    },
+    notebook: {
+      A: `根據我想申請的【國立政治大學法律學系】的校系資料，請幫我整理出：
+1. 這個校系想要招收的人才特質（3 點，白話說明）
+2. 這個校系特有的資源（具體名稱，如實驗室、實習計畫、產學合作）
+3. 這個校系的代表性課程（大二、大三的特色選修或實作課，各 2～3 門）
+4. 這個校系學長姐的主要職涯發展方向（3 個典型出路）`,
+      B: `根據我想申請的【國立中山大學 電機工程學系】的校系資料，請幫我整理出：
+1. 這個校系想要招收的人才特質（3 點，白話說明）
+2. 這個校系特有的資源（具體名稱，如實驗室、實習計畫、產學合作）
+3. 這個校系的代表性課程（大二、大三的特色選修或實作課，各 2～3 門）
+4. 這個校系學長姐的主要職涯發展方向（3 個典型出路）`,
+      C: `根據我想申請的【國立成功大學藥學系】的校系資料，請幫我整理出：
+1. 這個校系想要招收的人才特質（3 點，白話說明）
+2. 這個校系特有的資源（具體名稱，如實驗室、實習計畫、產學合作）
+3. 這個校系的代表性課程（大二、大三的特色選修或實作課，各 2～3 門）
+4. 這個校系學長姐的主要職涯發展方向（3 個典型出路）`,
+      D: `根據我想申請的【國立中興大學動物科學系】的校系資料，請幫我整理出：
+1. 這個校系想要招收的人才特質（3 點，白話說明）
+2. 這個校系特有的資源（具體名稱，如實驗室、實習計畫、產學合作）
+3. 這個校系的代表性課程（大二、大三的特色選修或實作課，各 2～3 門）
+4. 這個校系學長姐的主要職涯發展方向（3 個典型出路）`
+    },
+    plain: {
+      A: `以下是我高中三年做過的事，請用溫暖、鼓勵的方式，幫我看見這些經歷的價值，並收斂出 3 個最能代表我的個人特色，每個特色請用一句話當標題，並且每一個標題下要用300字說明我的個人特色、並解釋你判斷我的亮點時你的理由。
+→
+興趣傾向與人格特質
+
+學群方向：法律、商管、社會
+興趣：看新聞、看法律 YouTube、辯論、戲劇。
+人格特質：外向、好勝心強、好辯但有時急躁；想到什麼說什麼，講到自己有感覺的事情會跳針；對社會議題敏感，但邏輯細節常被情緒帶過去。
+學習傾向：偏文科，國文、社會、英文中上；數學中下；不喜歡背公式但喜歡背案例。
+表達樣貌：能說，但講話容易離題；有主見但有時太衝。
+
+Q1：高中三年，你有沒有做過一件事讓你覺得「還不錯」或「有成就感」的？
+A 同學：嗯……我覺得是當社長那一年吧？因為我們社團有辦一個校內辯論比賽，蠻累的但辦完就……蠻有成就感的。雖然中間經費快不夠，反正最後有辦起來啦。
+
+Q2：那件事裡，你做了什麼？你的部分是什麼？
+A 同學：我是社長啊，所以蠻多事都要管。像寫企劃、找贊助、邀裁判、排場地……喔還有幹部之間意見不合的時候要協調。然後我也有跟上一屆學長姐去溝通說，希望讓我們自己決定一些事。
+
+Q3：做那件事的時候，有沒有遇到困難或覺得很累的時候？你怎麼處理的？
+A 同學：最累應該是經費沒了那時候。原本要去申請市府的補助名額剛好滿了，學校也說沒有錢。我就用社團帳號去私訊立委、議員……大部分沒回啦，後來有一個校友會會長願意贊助兩千，剩下我們就提高一點報名費。當下蠻焦慮的，那時候真的會懷疑自己幹嘛接這個位置。
+
+Q4：如果你要跟一個完全不認識你的教授介紹這件事，你覺得最值得說的是哪一點？
+A 同學：嗯……我覺得是我學會跟立場不一樣的人講話吧。像我那時候要跟學長姐爭取自主權，又要處理跟社師意見不合，還有幹部之間吵架。以前我會逃避吵架，現在我比較敢直接把問題說出來，再一步一步處理。`,
+
+      B: `以下是我高中三年做過的事，請用溫暖、鼓勵的方式，幫我看見這些經歷的價值，並收斂出 3 個最能代表我的個人特色，每個特色請用一句話當標題，並且每一個標題下要用300字說明我的個人特色、並解釋你判斷我的亮點時你的理由。
+→
+興趣傾向與人格特質
+
+學群方向：物理、材料、應用數學。
+興趣：拆東西、做實驗、看科普影片。
+人格特質：內向、認真、有點完美主義；對細節敏感但對人的情緒不太敏感；不擅長講故事，常常一句話結尾就沒了。
+學習傾向：數學、理化中上；國文、英文中下；不擅長寫長篇心得。
+表達樣貌：短、直接、答非所問偶爾出現；講到專業內容比較有信心，講到反思類問題會卡。
+
+Q1：高中三年，你有沒有做過一件事讓你覺得「還不錯」或「有成就感」的？
+B 同學：嗯……應該是科展那個吧。電磁波那個。
+
+Q2：那件事裡，你做了什麼？你的部分是什麼？
+B 同學：我們是三個人一組。我主要負責調材料配比跟測數據，就是把矽藻土跟不同的粉混在一起，然後放在手機跟偵測器中間看數值。我也有做一張記錄表。
+
+Q3：做那件事的時候，有沒有遇到困難或覺得很累的時候？你怎麼處理的？
+B 同學：有一次偵測器讀數一直鎖在最高，我們以為是材料的問題。換地點、重新校準、重新測……整晚都在排錯。最後發現是電池沒電。那時我有點崩潰。後來就學到，每次做實驗前要先檢查工具。
+
+Q4：如果你要跟一個完全不認識你的教授介紹這件事，你覺得最值得說的是哪一點？
+B 同學：呃……應該是……我們發現泡水的活性碳加鋁粉效果最好。這個有點意外，因為一般會以為材料要乾燥才有用。其實我也不太確定這算不算最值得說的，但反正就這個。`,
+
+      C: `以下是我高中三年做過的事，請用溫暖、鼓勵的方式，幫我看見這些經歷的價值，並收斂出 3 個最能代表我的個人特色，每個特色請用一句話當標題，並且每一個標題下要用300字說明我的個人特色、並解釋你判斷我的亮點時你的理由。
+→
+興趣傾向與人格特質
+
+學群方向：醫療、護理、公共衛生。
+興趣：照顧家人、看醫療類影集、了解長輩生活。
+人格特質：內向、溫柔、有同理心；認真但容易緊張；說話會吞吞吐吐，可是講到「人」的時候會比較順。
+學習傾向：生物、國文中上；數學中等；自然其他科普通。
+表達樣貌：開頭會停頓，需要老師多給一點時間；講到情感面會比較放鬆，講到分析面會卡。
+
+Q1：高中三年，你有沒有做過一件事讓你覺得「還不錯」或「有成就感」的？
+C 同學：嗯……我覺得是去外婆家那邊當志工那次？我跟她去社區關懷中心，看護理師跟阿公阿嬤上課。
+
+Q2：那件事裡，你做了什麼？你的部分是什麼？
+C 同學：我主要是……就是陪。陪外婆去上課，幫忙發講義給其他阿嬤。有些阿嬤只聽得懂台語，我就再講一次，因為我會講國台語。後來護理師示範怎麼描述自己哪裡不舒服，我也有幫忙翻譯給聽不太到的阿嬤。
+
+Q3：做那件事的時候，有沒有遇到困難或覺得很累的時候？你怎麼處理的？
+C 同學：嗯……其實沒有真的很累，但有點難的是，有些阿公阿嬤會問同樣的問題很多次，我會有一點不耐煩，但我會提醒自己他們不是故意的。後來我就學護理師那樣用大字寫重點給他們看，就比較好。
+
+Q4：如果你要跟一個完全不認識你的教授介紹這件事，你覺得最值得說的是哪一點？
+C 同學：我會說……就是我發現當醫護人員不只是治病，還要會跟病人講話。像我外公以前都不想去醫院，他覺得醫院很可怕。我覺得未來如果要走醫療相關的，溝通的那一塊我也要練。`,
+
+      D: `以下是我高中三年做過的事，請用溫暖、鼓勵的方式，幫我看見這些經歷的價值，並收斂出 3 個最能代表我的個人特色，每個特色請用一句話當標題，並且每一個標題下要用300字說明我的個人特色、並解釋你判斷我的亮點時你的理由。
+→
+興趣傾向與人格特質
+
+學群方向：畜牧、農業、動物相關職涯。
+興趣：玩吉他、看動物、戶外活動。
+人格特質：踏實、做比說多、有點害羞；不愛唸書但喜歡動手；遇到陌生人會用「對啊」、「還好」帶過。
+學習傾向：實習課表現好；國英數普通偏弱；專業科目願意花時間學。
+表達樣貌：超短、常常一句就結束；被追問細節才會多講；講到「我做過什麼」比講「我學到什麼」自在。
+
+Q1：高中三年，你有沒有做過一件事讓你覺得「還不錯」或「有成就感」的？
+D 同學：呃……牧草辨識那個吧。
+（學生沉默，老師換問法：那你有參加過什麼社團、比賽、或是幫過什麼人嗎？）
+D 同學：喔，那我有玩吉他社。其他比賽就還好。
+
+Q2：那件事裡，你做了什麼？你的部分是什麼？
+D 同學：就學辨認不同的牧草啊。像狼尾草、盤固拉、百慕達這些。我們要去摸、去看葉脈跟根，然後考試會抽十種來認。我自己最會認的是狼尾草，因為比較粗。
+
+Q3：做那件事的時候，有沒有遇到困難或覺得很累的時候？你怎麼處理的？
+D 同學：困難喔……就一開始很多牧草都長得超像啊，會分不出來。我就拍照存手機，晚上回宿舍自己看。室友也有幫我抽考。其實累的話，我吉他可以彈一下就比較放鬆了。
+
+Q4：如果你要跟一個完全不認識你的教授介紹這件事，你覺得最值得說的是哪一點？
+D 同學：嗯……（停頓）……我會說我比較不怕動手。書面的東西我不太會講，可是實際要做的話我可以。像我會分牧草、我有摸過小牛這些，那個我比較會。`
+    }
+  };
+
+  function copyPrompt(gem, student, pill) {
+    const text = PROMPTS[gem][student];
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = pill.textContent;
+      pill.textContent = '✓ 已複製！';
+      pill.classList.add('copied');
+      setTimeout(() => {
+        pill.textContent = orig;
+        pill.classList.remove('copied');
+      }, 1800);
+    });
+  }
+
+  // Lightbox
+  function openLightbox(img) {
+    const lb = document.getElementById('lightbox');
+    document.getElementById('lightbox-img').src = img.src;
+    lb.classList.add('open');
+    document.addEventListener('keydown', escLightbox);
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.removeEventListener('keydown', escLightbox);
+  }
+  function escLightbox(e) { if (e.key === 'Escape') closeLightbox(); }
+
+  function toggleLMSteps(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+    btn.textContent = isOpen ? '操作步驟說明' : '收起說明';
+    if (!isOpen) btn.classList.add('open');
+  }
 
   function toggleGallery(el) {
     const extra = el.nextElementSibling;
