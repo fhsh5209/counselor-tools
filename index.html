@@ -1460,10 +1460,10 @@
         </div>
         <p class="tool-why" style="margin-bottom:6px;">協助學生完成申請入學最重要的兩份文件——多元表現綜整心得與學習歷程自述。</p>
         <p style="font-size:15px;font-weight:500;color:var(--purple-deep);opacity:0.85;letter-spacing:0.03em;margin-bottom:10px;">前置作業完成～最終 STEP 4 將再擇期分享</p>
-        <button class="lm-steps-toggle" onclick="toggleLMSteps(this)" style="color:var(--purple-deep);">STEP 4 說明預覽</button>
+        <button class="lm-steps-toggle" onclick="event.preventDefault();event.stopPropagation();toggleLMSteps(this)" style="color:var(--purple-deep);">STEP 4 說明預覽</button>
         <div class="lm-steps-body">
           <div style="margin-top:14px;">
-            <img class="lm-step-img" src="assets/step4-preview.jpg" alt="STEP 4 說明預覽" onclick="openLightbox(this)">
+            <img class="lm-step-img" src="assets/step4-preview.jpg" alt="STEP 4 說明預覽" onclick="event.preventDefault();event.stopPropagation();openLightbox(this)">
           </div>
         </div>
       </a>
